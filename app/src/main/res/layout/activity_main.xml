@@ -124,7 +124,8 @@
                 android:layout_marginTop="32dp"
                 android:gravity="center"
                 android:onClick="click1"
-                android:text="+3points" />
+                android:text="+3points"
+                />
 
         </LinearLayout>
 
