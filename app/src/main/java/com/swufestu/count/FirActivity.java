@@ -50,6 +50,10 @@ public class FirActivity extends AppCompatActivity {
     }
 
     public void open(View view) {
+        extracted();
+    }
+
+    private void extracted() {
         Intent second=new Intent(this,thirdActivity.class);
         //Intent first=new Intent(Intent.ACTION_VIE)
         second.putExtra("dollar_rate",dollar_rate);
@@ -78,7 +82,7 @@ public class FirActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.setting){
-
+            extracted();
         }
         return super.onOptionsItemSelected(item);
     }
