@@ -11,8 +11,6 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
-    int score2=0;
-    int score3=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,21 +23,18 @@ public class MainActivity extends AppCompatActivity {
         if(view.getId()==R.id.button){
             int sum1=Integer.parseInt(sum);
             sum1=sum1+1;
-            score2=sum1;
             DecimalFormat df=new DecimalFormat();
             String BM=df.format(sum1);
             score.setText(BM);
         }else if(view.getId()==R.id.button2){
             int sum1=Integer.parseInt(sum);
             sum1=sum1+2;
-            score2=sum1;
             DecimalFormat df=new DecimalFormat();
             String BM=df.format(sum1);
             score.setText(BM);
         }else if(view.getId()==R.id.button3){
             int sum1=Integer.parseInt(sum);
             sum1=sum1+3;
-            score2=sum1;
             DecimalFormat df=new DecimalFormat();
             String BM=df.format(sum1);
             score.setText(BM);
@@ -53,21 +48,18 @@ public class MainActivity extends AppCompatActivity {
         if(view.getId()==R.id.button5){
             int sum1=Integer.parseInt(sum);
             sum1=sum1+1;
-            score3=sum1;
             DecimalFormat df=new DecimalFormat();
             String BM=df.format(sum1);
             score.setText(BM);
         }else if(view.getId()==R.id.button6){
             int sum1=Integer.parseInt(sum);
             sum1=sum1+2;
-            score3=sum1;
             DecimalFormat df=new DecimalFormat();
             String BM=df.format(sum1);
             score.setText(BM);
         }else if(view.getId()==R.id.button7){
             int sum1=Integer.parseInt(sum);
             sum1=sum1+3;
-            score3=sum1;
             DecimalFormat df=new DecimalFormat();
             String BM=df.format(sum1);
             score.setText(BM);
@@ -84,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        TextView score=findViewById(R.id.textView4);
+        TextView score1=findViewById(R.id.textView);
+        int score2=Integer.parseInt(score.getText().toString());
+        int score3=Integer.parseInt(score1.getText().toString());
         outState.putInt("score2",score2);
         outState.putInt("score3",score3);
     }
@@ -91,14 +87,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        score2=savedInstanceState.getInt("score2");
-        score3=savedInstanceState.getInt("score3");
-        showScore();
+        int score2=savedInstanceState.getInt("score2");
+        int score3=savedInstanceState.getInt("score3");
+        TextView score=findViewById(R.id.textView4);
+        TextView score1=findViewById(R.id.textView);
+        score.setText(String.valueOf(score2));
+        score1.setText(String.valueOf(score3));
     }
 
-    void showScore(){
-        TextView score=findViewById(R.id.textView4);
-        score.setText(score2);
-        score.setText(score3);
-    }
 }
