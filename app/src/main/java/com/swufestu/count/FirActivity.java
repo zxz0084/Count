@@ -21,6 +21,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -56,10 +61,21 @@ public class FirActivity extends AppCompatActivity implements Runnable {
                 Log.i(TAG,"handleMessage:accept Message");
                 if(msg.what==6){
                     //接收消息
-                   String str= (String)msg.obj;
-                   Log.i(TAG,"handleMessage:str"+str);
-                   result.setText(str);
+                    //Intent intent=getIntent();
+                    Bundle bundle=(Bundle) msg.obj;
+                    dollar_rate=bundle.getDouble("dollar_rate");
+                    euro_rate=bundle.getDouble("euro_rate");
+                    won_rate=bundle.getDouble("won_rate");
+
+                    SharedPreferences sp=getSharedPreferences("myrate",Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.putString("dollar_rate",String.valueOf(dollar_rate));
+                    editor.putString("euro_rate",String.valueOf(euro_rate));
+                    editor.putString("won_rate",String.valueOf(won_rate));
+                    editor.apply();
+                    Toast.makeText(FirActivity.this,"汇率已更新",Toast.LENGTH_SHORT).show();
                 }
+
                 super.handleMessage(msg);
             }
         };
@@ -141,12 +157,12 @@ public class FirActivity extends AppCompatActivity implements Runnable {
     @Override
     public void run() {
         Log.i(TAG,"run.........");
-        try {
+        /*try {
             Thread.sleep(3000);
         }catch (InterruptedException e){
             e.printStackTrace();
-        }
-        URL url=null;
+        }*/
+       /* URL url=null;
         try {
             Log.i(TAG,"run:访问 url");
             url=new URL("https://www.usd-cny.com/bankofchina.htm");
@@ -159,13 +175,55 @@ public class FirActivity extends AppCompatActivity implements Runnable {
             e.printStackTrace();
         }catch (IOException e){
             e.printStackTrace();
+        }*/
+        Bundle bdl=new Bundle();
+        try{
+            Document doc = Jsoup.connect("https://www.usd-cny.com/").get();
+            //Log.i(TAG,doc.title());
+            Elements tables = doc.getElementsByTag("table");//id是唯一的，Tag返回一个集合
+            Element first = tables.first();
+            Elements trs = first.getElementsByTag("tr");
+            trs.remove(0);
+            for (Element tr :trs){
+              //Log.i(TAG,"run:tr="+tr);
+                Elements tds = tr.getElementsByTag("td");
+                Element td1 = tds.get(0);
+                Element td2 = tds.get(4);
+                Log.i(TAG,"td1="+td1.text()+" \t td2="+td2.text());
+                if("美元".equals(td1.text())){
+                     String rate1=td2.text();
+                     bdl.putDouble("dollar_rate",100/Double.parseDouble(rate1));
+                }else if("欧元".equals(td1.text())){
+                    String rate1=td2.text();
+                    bdl.putDouble("euro_rate",100/Double.parseDouble(rate1));
+                }else if("韩元".equals(td1.text())){
+                    String rate1=td2.text();
+                    bdl.putDouble("won_rate",100/Double.parseDouble(rate1));
+                }
+            }
+            //Log.i(TAG,"run:table:"+first);
+         //   Elements tds = first.getElementsByTag("td");
+         //t i=0;i<tds.size();i+=5){
+          //ement element1= tds.get(i);
+            //ement element2 = tds.get(i + 1);
+          //Log.i(TAG,"td1="+ element1.text()+" \t td2="+element2.text());
+           //ring str1=element1.text();
+         //   for(Element td:tds){
+           //     Log.i(TAG,"run:table:"+td.text());
+            //}
+           // Element th2 = ths.get(0);
+            //Log.i(TAG,"run:"+th2);
+        }catch (IOException e){
+            e.printStackTrace();
         }
-        Message msg=handler.obtainMessage();
+       // Intent intent=new Intent();
+       // intent.putExtras(bdl);
+       Message msg=handler.obtainMessage();
         msg.what=6;
-        msg.obj="Hello from run";
+        msg.obj=bdl;
         handler.sendMessage(msg);
     }
-    private String inputStream2String(InputStream inputStream) throws IOException{
+  /*  private String inputStream2String(InputStream inputStream) throws IOException{
         final int bufferSize=1024;
         final char[]buffer=new char[bufferSize];
         final StringBuilder out=new StringBuilder();
@@ -176,5 +234,5 @@ public class FirActivity extends AppCompatActivity implements Runnable {
             out.append(buffer,0,rsz);
         }
         return out.toString();
-    }
+    }    */
 }
