@@ -8,13 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,24 +27,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 
 public class FirActivity extends AppCompatActivity implements Runnable {
    private static final String TAG="FirActivity";
     double dollar_rate;
     double euro_rate;
     double won_rate;
-    int flag=0;
     Handler handler=null;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -59,16 +49,23 @@ public class FirActivity extends AppCompatActivity implements Runnable {
         //PreferenceManager.getDefaultSharedPreferences(this);
         int flag=sharedPreferences.getInt("flag",0);
         String time=sharedPreferences.getString("time","2021-09-30");
+        //LocalDate date=LocalDate.now();
+        LocalDateTime dateTime=LocalDateTime.now();
         LocalDate date=LocalDate.now();
         LocalDate date2 = LocalDate.parse(time);
+        DateTimeFormatter struct=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formant2=struct.format(dateTime);
+        String format=struct.format(date);
+        String format1=struct.format(date2);
+        Log.i(TAG,"datenow="+format+" \n date2="+time+"\n format2"+formant2);
         //如果发现flag为0.则读取网页汇率，并且更新flag和当天时间，并存储汇率
         //如果flag!=0，则判定是否为当天，如果是当天，则直接读取存储的汇率，如果不是当天则，更新当天时间，并且从网页读取汇率，并更新。
         if(flag==0){
             //SharedPreferences sp=getSharedPreferences("myrate",Activity.MODE_PRIVATE);
             Log.i(TAG,"flag="+flag);
             editor.putInt("flag",1);
-            DateTimeFormatter struct=DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String format=struct.format(date);
+            //DateTimeFormatter struct=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            //String format=struct.format(date);
             editor.putString("time",format);
             handler=new Handler(Looper.myLooper()){
                 @Override
@@ -95,8 +92,10 @@ public class FirActivity extends AppCompatActivity implements Runnable {
             thread.start();//this.run();
         }else{
             if(date.isAfter(date2)){
-                DateTimeFormatter struct=DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                String format=struct.format(date);
+                //DateTimeFormatter struct=DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                //String format=struct.format(date);
+                //String format1=struct.format(date2);
+                Log.i(TAG,"datenow="+date+"date2="+date2);
                 editor.putString("time",format);
                 handler=new Handler(Looper.myLooper()){
                     @Override
