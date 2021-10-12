@@ -26,17 +26,17 @@ public class MyTask  implements  Runnable{
         int count=0;
         Bundle bdl=new Bundle();
         try{
-            Document doc = Jsoup.connect("https://www.usd-cny.com/").get();
-            //Log.i(TAG,doc.title());
+            Document doc = Jsoup.connect("https://www.boc.cn/sourcedb/whpj/").get();
+            Log.i(TAG,doc.title());
             Elements tables = doc.getElementsByTag("table");//id是唯一的，Tag返回一个集合
-            Element first = tables.first();
+            Element first = tables.get(1);
             Elements trs = first.getElementsByTag("tr");
             trs.remove(0);
             for (Element tr :trs){
                 //Log.i(TAG,"run:tr="+tr);
                 Elements tds = tr.getElementsByTag("td");
                 Element td1 = tds.get(0);
-                Element td2 = tds.get(4);
+                Element td2 = tds.get(5);
                 Log.i(TAG,"td1="+td1.text()+" \t td2="+td2.text());
                 list.add(td1.text()+"==>"+td2.text());
                 /*
