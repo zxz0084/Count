@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Count">
         <activity
+            android:name=".cacu"
+            android:exported="true" />
+        <activity
+            android:name=".RateActivity"
+            android:exported="true" />
+        <activity
             android:name=".forthActivity"
             android:exported="true" />
         <activity

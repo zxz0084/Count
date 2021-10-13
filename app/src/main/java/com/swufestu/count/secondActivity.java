@@ -43,8 +43,6 @@ public class secondActivity extends ListActivity {
         task.setHandler(handler);
         Thread thread=new Thread(task);
         thread.start();
-
-
         //setContentView(R.layout.activity_second);
     }
 }

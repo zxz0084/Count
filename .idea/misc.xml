@@ -4,12 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout-land/activity_main.xml" value="0.20149911816578484" />
+        <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout/activity_cacu.xml" value="0.17083333333333334" />
         <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout/activity_fir.xml" value="0.22604166666666667" />
         <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout/activity_forth.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout/activity_rate.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout/activity_second.xml" value="0.2390625" />
         <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout/activity_third.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout/activity_third_acitivity.xml" value="0.25364583333333335" />
+        <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/layout/list_layout.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/Count/app/src/main/res/menu/mymenu.xml" value="0.264" />
       </map>
     </option>

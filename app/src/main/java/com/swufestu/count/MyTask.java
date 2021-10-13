@@ -12,11 +12,14 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MyTask  implements  Runnable{
     private static final String TAG="MyTask";
     List<String> list=new ArrayList<String>();
+    //HashMap<String,String> label=new HashMap<String,String>();
+    //HashMap<String,String> rate=new HashMap<String,String>();
     private Handler handler;
     public void  setHandler(Handler handler){
         this.handler=handler;
@@ -38,7 +41,8 @@ public class MyTask  implements  Runnable{
                 Element td1 = tds.get(0);
                 Element td2 = tds.get(5);
                 Log.i(TAG,"td1="+td1.text()+" \t td2="+td2.text());
-                list.add(td1.text()+"==>"+td2.text());
+
+                list.add(td1.text()+" "+td2.text());
                 /*
                 if("美元".equals(td1.text())){
                     String rate1=td2.text();
