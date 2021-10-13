@@ -38,9 +38,12 @@ public class FirActivity extends AppCompatActivity implements Runnable {
     double euro_rate;
     double won_rate;
     Handler handler=null;
-
+    public void  setHandler(Handler handler){
+        this.handler=handler;
+    }
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fir);

@@ -56,7 +56,7 @@ public class MyTask  implements  Runnable{
         }
         bdl.putInt("num",count);
         Message msg=handler.obtainMessage();
-        msg.what=6;
+        msg.what=9;
         msg.obj=list;
         handler.sendMessage(msg);
     }
